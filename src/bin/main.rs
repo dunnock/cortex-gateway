@@ -1,22 +1,43 @@
-use cortex_gateway::{router::{EvmapRouter, Router}, Handler};
-use pretty_env_logger;
+use cortex_gateway::{
+    router::{EvmapRouter, Router},
+    Handler,
+};
 use hyper::service::{make_service_fn, service_fn};
-use hyper::{Server, Method, Request, Body, Error};
+use hyper::{Body, Error, Method, Request, Server};
+use pretty_env_logger;
 use std::sync::Arc;
+use structopt::StructOpt;
+
+#[derive(StructOpt)]
+#[structopt(name = "cortex", about = "HTTP gateway for grayarea functions")]
+struct Cli {
+    /// port to start server
+    #[structopt(short = "p", long = "port", default_value = "3000")]
+    port: u16,
+    /// server configuration (yaml)
+    #[structopt(short = "c", long = "config", default_value = "config.yaml")]
+    config: std::path::PathBuf,
+}
 
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    let args = Cli::from_args();
     pretty_env_logger::init();
 
     let mut evmap_router: EvmapRouter = EvmapRouter::default();
     // setup routes? perhaps spawn process monitoring/setting up routes?
-    evmap_router.add(Method::GET, "/", Handler { topic: String::from("/") });
-    
+    evmap_router.add(
+        Method::GET,
+        "/",
+        Handler {
+            topic: String::from("/"),
+        },
+    );
+
     let router = Arc::new(evmap_router);
 
     // TODO: to change routes in parallel thread perhaps we will need to spawn a new thread
     // which will own the write handle to evmap
-
 
     // For every connection, we must make a `Service` to handle all
     // incoming HTTP requests on said connection.
@@ -27,19 +48,17 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
         // create router reference per connection
         let router = router.clone();
-        async { 
+        async {
             Ok::<_, Error>(service_fn(move |req: Request<Body>| {
                 // for every request we have to copy a handle to list of routes
                 // not the most efficient way :-)
                 let router = router.clone();
-                async move {
-                    router.handle(req).await
-                }
+                async move { router.handle(req).await }
             }))
         }
     });
 
-    let addr = ([127, 0, 0, 1], 3000).into();
+    let addr = ([127, 0, 0, 1], args.port).into();
 
     let server = Server::bind(&addr).serve(make_svc);
 

@@ -1,3 +1,3 @@
 pub struct Handler {
-	pub topic: String
+    pub topic: String,
 }

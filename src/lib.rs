@@ -1,5 +1,5 @@
-pub mod router;
 pub mod handler;
+pub mod router;
 
-pub use router::Router;
 pub use handler::Handler;
+pub use router::Router;
