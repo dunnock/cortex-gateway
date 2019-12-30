@@ -12,6 +12,12 @@ pub struct EvmapRouter {
 	reader: ReadMap
 }
 
+/// Routes writer - only single instance of writer per map of routes exists
+/// - should it be one instance per one client? 
+/// 	-- in this case domain matching should be performed before?
+/// 	-- if single instance per server then domain param should be added to handler structure
+/// 	-- if single instance per server there will be some redundancy when copying evmap_reader
+/// - add/remove routes
 pub struct EvmapRouterWriter {
 	// evmap write handle
 	writer: WriteMap 
@@ -32,8 +38,8 @@ impl EvmapRouterWriter {
 }
 
 /// Thread safe router
-/// - add/remove routes
 /// - handle routes
+/// - safe to clone between threads (it should only make shallow copy of evmap reader)
 #[async_trait]
 pub trait Router: Send+Sync+Clone {
     async fn handle(&self, req: Request<Body>) -> Result<Response<Body>, Error>;
