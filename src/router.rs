@@ -42,7 +42,10 @@ impl Router for EvmapRouter {
     fn remove(&mut self, route_pattern: &str) {}
     async fn handle(&self, req: Request<Body>) -> Result<Response<Body>, Error> {
         let response = async {
-            //nats post/get
+			// TODO: 
+			// let topic = self.evmap_matcher.match(req.path()).get_topic();
+			// nats.post(topic, req.body()).await
+			// nats.get().await
             "Hello, World".into()
         }
         .await;
