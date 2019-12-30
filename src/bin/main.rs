@@ -1,5 +1,5 @@
 use cortex_gateway::{
-    router::{EvmapRouter, Router},
+    router::{EvmapRouter, EvmapRouterWriter, Router},
     Handler,
 };
 use hyper::service::{make_service_fn, service_fn};
@@ -24,17 +24,20 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let args = Cli::from_args();
     pretty_env_logger::init();
 
-    let mut evmap_router: EvmapRouter = EvmapRouter::default();
+    let (map_r, map_w) = evmap::new();
+    let mut routes_writer = EvmapRouterWriter::new(map_w);
     // setup routes? perhaps spawn process monitoring/setting up routes?
-    evmap_router.add(
+    routes_writer.add(
         Method::GET,
         "/",
         Handler {
-            topic: String::from("/"),
+            id: 0,
+            path: String::from("/"),
+            topic: String::from("root"),
         },
     );
 
-    let router = Arc::new(evmap_router);
+    let router = Arc::new(EvmapRouter::new(map_r));
 
     // TODO: to change routes in parallel thread perhaps we will need to spawn a new thread
     // which will own the write handle to evmap

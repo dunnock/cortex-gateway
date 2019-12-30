@@ -84,6 +84,7 @@ name = "cortex_gateway"
 version = "0.1.0"
 dependencies = [
  "async-trait 0.1.22 (registry+https://github.com/rust-lang/crates.io-index)",
+ "evmap 7.1.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "hyper 0.13.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "pretty_env_logger 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -100,6 +101,14 @@ dependencies = [
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 1.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "termcolor 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "evmap"
+version = "7.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "smallvec 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -464,6 +473,11 @@ version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "smallvec"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
 name = "strsim"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -687,6 +701,7 @@ dependencies = [
 "checksum chrono 0.4.10 (registry+https://github.com/rust-lang/crates.io-index)" = "31850b4a4d6bae316f7a09e691c944c28299298837edc0a03f755618c23cbc01"
 "checksum clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5067f5bb2d80ef5d68b4c87db81601f0b75bca627bc2ef76b141d7b846a3c6d9"
 "checksum env_logger 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "aafcde04e90a5226a6443b7aabdb016ba2f8307c847d524724bd9b346dd1a2d3"
+"checksum evmap 7.1.3 (registry+https://github.com/rust-lang/crates.io-index)" = "5589ce096bbfc5465cc2f3f6de6605803d6b4ef741ad6d38172dc30bfeea5f95"
 "checksum fnv 1.0.6 (registry+https://github.com/rust-lang/crates.io-index)" = "2fad85553e09a6f881f739c29f0b00b0f01357c743266d478b68951ce23285f3"
 "checksum fuchsia-zircon 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)" = "2e9763c69ebaae630ba35f74888db465e49e259ba1bc0eda7d06f4a067615d82"
 "checksum fuchsia-zircon-sys 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)" = "3dcaa9ae7725d12cdb85b3ad99a434db70b468c09ded17e012d86b5c1010f7a7"
@@ -730,6 +745,7 @@ dependencies = [
 "checksum regex-syntax 0.6.12 (registry+https://github.com/rust-lang/crates.io-index)" = "11a7e20d1cce64ef2fed88b66d347f88bd9babb82845b2b858f3edbf59a4f716"
 "checksum rustversion 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "3a0538bd897e17257b0128d2fd95c2ed6df939374073a36166051a79e2eb7986"
 "checksum slab 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)" = "c111b5bd5695e56cffe5129854aa230b39c93a305372fdbb2668ca2394eea9f8"
+"checksum smallvec 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "44e59e0c9fa00817912ae6e4e6e3c4fe04455e75699d06eedc7d85917ed8e8f4"
 "checksum strsim 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)" = "8ea5119cdb4c55b55d432abb513a0429384878c15dde60cc77b1c99de1a95a6a"
 "checksum structopt 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)" = "884ae79d6aad1e738f4a70dff314203fd498490a63ebc4d03ea83323c40b7b72"
 "checksum structopt-derive 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "0a97f829a34a0a9d5b353a881025a23b8c9fd09d46be6045df6b22920dbd7a93"
