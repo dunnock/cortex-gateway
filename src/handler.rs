@@ -13,6 +13,8 @@ impl PartialEq for Handler {
 }
 impl Eq for Handler {}
 impl ShallowCopy for Handler {
+    // It should be quite efficient - copy performed only on first write
+    // Later evmap operates with 2 copies one for read another for write and oplog
      unsafe fn shallow_copy(&mut self) -> Self {
          Handler {
             id: self.id,
